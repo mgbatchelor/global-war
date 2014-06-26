@@ -18,6 +18,10 @@ class GamesController < ApplicationController
     end
   end
 
+  def show
+    @game = Game.find(params[:id])
+  end
+
   def join
     game = Game.find(params[:game_id])
     current_user.join(game)

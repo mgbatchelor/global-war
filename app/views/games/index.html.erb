@@ -3,26 +3,32 @@
 <% unless @games.empty? %>
   <h3>Games</h3>
   <% @games.each do |game| %>
-    <div class="jumbotron">
-      <h4><%= game.name %> <small>by: <%= game.owner.email %></h4>
-      <div class="row">
-        <div class="col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>
+          <%= game.name %>
+          <small>by: <%= game.owner.email %></small>
+          <div class="pull-right">
+            <% if current_user.in_game? game %>
+              <%= link_to 'Enter Game', game_path(game), class: 'btn btn-success btn-sm' %>
+              <%= link_to "Leave", game_leave_path(game), method: :post, class: 'btn btn-primary btn-sm' %>
+            <% else %>
+              <%= link_to "Join", game_join_path(game), method: :post, class: 'btn btn-primary btn-sm' %>
+            <% end %>
+            <% if current_user.is_owner? game %>
+              <%= link_to 'Delete Game', game, method: :delete, class: 'btn btn-danger btn-sm' %>
+            <% end %>
+          </div>
+        </h4>
+      </div>
+      <div class="panel-body">
+        <div class="row-fluid">
           <strong>Players</strong>
           <ol>
             <% game.users.each do |user| %>
                <li><%= user.email %></li>
             <% end %>
           </ol>
-        </div>
-        <div class="col-lg-6">
-          <% if current_user.in_game? game %>
-            <p><%= link_to "Leave", game_leave_path(game), method: :post %></p>
-          <% else %>
-            <p><%= link_to "Join", game_join_path(game), method: :post %></p>
-          <% end %>
-          <% if current_user.is_owner? game %>
-            <%= link_to 'Delete Game', game, method: :delete %>
-          <% end %>
         </div>
       </div>
     </div>
@@ -36,3 +42,5 @@
   <%= f.text_field :name, hide_label: true %>
   <%= f.primary %>
 <% end %>
+
+<hr>
