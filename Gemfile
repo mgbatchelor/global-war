@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'devise'
 
 gem 'bootstrap-generators', '~> 3.1.1'
+gem 'bootstrap_form'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'

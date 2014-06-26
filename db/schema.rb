@@ -11,7 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140626040225) do
+ActiveRecord::Schema.define(version: 20140626051942) do
+
+  create_table "games", force: true do |t|
+    t.string   "name"
+    t.string   "map"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "owner_id"
+  end
+
+  add_index "games", ["owner_id"], name: "index_games_on_owner_id"
+
+  create_table "games_users", force: true do |t|
+    t.integer  "game_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "games_users", ["game_id"], name: "index_games_users_on_game_id"
+  add_index "games_users", ["user_id"], name: "index_games_users_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
