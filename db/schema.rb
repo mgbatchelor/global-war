@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20140626051942) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "games", force: true do |t|
     t.string   "name"
     t.string   "map"
@@ -21,7 +24,7 @@ ActiveRecord::Schema.define(version: 20140626051942) do
     t.integer  "owner_id"
   end
 
-  add_index "games", ["owner_id"], name: "index_games_on_owner_id"
+  add_index "games", ["owner_id"], name: "index_games_on_owner_id", using: :btree
 
   create_table "games_users", force: true do |t|
     t.integer  "game_id"
@@ -30,8 +33,8 @@ ActiveRecord::Schema.define(version: 20140626051942) do
     t.datetime "updated_at"
   end
 
-  add_index "games_users", ["game_id"], name: "index_games_users_on_game_id"
-  add_index "games_users", ["user_id"], name: "index_games_users_on_user_id"
+  add_index "games_users", ["game_id"], name: "index_games_users_on_game_id", using: :btree
+  add_index "games_users", ["user_id"], name: "index_games_users_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -48,7 +51,7 @@ ActiveRecord::Schema.define(version: 20140626051942) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
