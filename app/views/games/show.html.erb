@@ -1,42 +1,61 @@
 <%= link_to 'Back', games_path %>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h4>
-      <%= @game.name %>
-      <small>by: <%= @game.owner.email %></small>
-    </h4>
-  </div>
-  <div class="panel-body">
-    <div class="row-fluid">
-      <strong>Players</strong>
-      <ol>
-        <% @game.users.each do |user| %>
-           <li><%= user.email %></li>
-        <% end %>
-      </ol>
-    </div>
-  </div>
-</div>
 
-<div class='panel panel-default'>
-  <div class='panel-heading'>Discussion</div>
-  <div id="chat-container" style="overflow-y: scroll; height:400px;">
-    <table class="table" id="chat">
 
-    <% @history.each do |h| %>
-      <tr><td><%= h.user.email %></td><td><%= h.message %></td><td><%= h.created_at %></td></tr>
-    <% end %>
-    </table>
-  </div>
-  <form id="input-form" style="background: #999; padding: 7px 5px">
-    <div class="row-fluid">
-      <div class="input-group">
-        <input id="input-text" type="text" class="form-control col-lg-10" placeholder="Enter chat text here!" autocomplete="off" autofocus />
-        <span class="btn btn-primary input-group-addon" type="submit">Send</span>
+<table class="table" style="min-height: 500px; min-width: 500px">
+  <% JSON.parse(@game.board.state).each do |row| %>
+    <tr>
+      <% row.each do |cell| %>
+        <% colors = ['#FBB735', '#EB403B', '#39C0B3', '#274389', '#227FB0' ] %>
+        <td style="background-color: <%= colors[cell] %>"></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+
+<div class="row">
+  <div class="col-lg-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>
+          <%= @game.name %>
+          <small>by: <%= @game.owner.email %></small>
+        </h4>
+      </div>
+      <div class="panel-body">
+        <div class="row-fluid">
+          <strong>Players</strong>
+          <ol>
+            <% @game.users.each do |user| %>
+               <li><%= user.email %></li>
+            <% end %>
+          </ol>
+        </div>
       </div>
     </div>
-  </form>
+  </div>
+
+  <div class="col-lg-9">
+    <div class='panel panel-default'>
+      <div class='panel-heading'>Discussion</div>
+      <div id="chat-container" style="overflow-y: scroll; height:200px;">
+        <table class="table" id="chat">
+
+        <% @history.each do |h| %>
+          <tr><td><%= h.user.email %></td><td><%= h.message %></td><td><%= h.created_at %></td></tr>
+        <% end %>
+        </table>
+      </div>
+      <form id="input-form" style="background: #999; padding: 7px 5px">
+        <div class="row-fluid">
+          <div class="input-group">
+            <input id="input-text" type="text" class="form-control col-lg-10" placeholder="Enter chat text here!" autocomplete="off" autofocus />
+            <span class="btn btn-primary input-group-addon" type="submit">Send</span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 
 <script>

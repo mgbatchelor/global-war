@@ -11,7 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140628063534) do
+ActiveRecord::Schema.define(version: 20140628082524) do
+
+  create_table "board_states", force: true do |t|
+    t.text     "state"
+    t.integer  "board_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "board_states", ["board_id"], name: "index_board_states_on_board_id"
+  add_index "board_states", ["user_id"], name: "index_board_states_on_user_id"
+
+  create_table "boards", force: true do |t|
+    t.text     "state"
+    t.integer  "game_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "boards", ["game_id"], name: "index_boards_on_game_id"
 
   create_table "chat_histories", force: true do |t|
     t.integer  "game_id"
