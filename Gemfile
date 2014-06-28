@@ -6,6 +6,8 @@ gem 'devise'
 gem 'bootstrap-generators', '~> 3.1.1'
 gem 'bootstrap_form'
 
+gem 'faye-websocket'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
 
@@ -21,7 +23,15 @@ gem 'jquery-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 
-gem 'spring',        group: :development
+gem 'puma'
 
-gem 'pg'
-gem 'rails_12factor', group: :production
+group :development do
+  gem 'sqlite3'
+  gem 'pry'
+  gem 'pry-remote'
+end
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end

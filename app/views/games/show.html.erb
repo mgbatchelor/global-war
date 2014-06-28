@@ -18,3 +18,42 @@
     </div>
   </div>
 </div>
+
+<div class='panel panel-default'>
+  <div class='panel-heading'>Discussion</div>
+  <div id="chat-container" style="overflow-y: scroll; height:400px;">
+    <table class="table" id="chat"></table>
+  </div>
+  <form id="input-form" style="background: #999; padding: 7px 5px">
+    <div class="row-fluid">
+      <div class="input-group">
+        <input id="input-text" type="text" class="form-control col-lg-10" placeholder="Enter chat text here!" autocomplete="off" autofocus />
+        <span class="btn btn-primary input-group-addon" type="submit">Send</span>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  var scheme   = "ws://";
+  var uri      = scheme + window.document.location.host + "/";
+  var ws       = new WebSocket(uri);
+
+  // public/assets/js/application.js
+  ws.onmessage = function(message) {
+    var data = JSON.parse(message.data);
+    $("#chat").append("<tr><td>" + data.user + "</td><td>" + data.message + "</td><td>" + data.created_at + "</td></tr>")
+    $("#chat-container").stop().animate({
+      scrollTop: $('#chat').height()
+    }, 500);
+  };
+
+  // public/assets/js/application.js
+  $("#input-form").on("submit", function(event) {
+    event.preventDefault();
+    var text   = $("#input-text")[0].value;
+    ws.send(JSON.stringify({ game_id : 4, text: text }));
+    $("#input-text")[0].value = "";
+  });
+
+</script>

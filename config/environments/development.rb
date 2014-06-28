@@ -1,3 +1,5 @@
+require './app/middlewares/web_sockets'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -36,5 +38,7 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
+
+  config.middleware.use GlobalWar::WebSockets
 
 end
