@@ -22,7 +22,12 @@
 <div class='panel panel-default'>
   <div class='panel-heading'>Discussion</div>
   <div id="chat-container" style="overflow-y: scroll; height:400px;">
-    <table class="table" id="chat"></table>
+    <table class="table" id="chat">
+
+    <% @history.each do |h| %>
+      <tr><td><%= h.user.email %></td><td><%= h.message %></td><td><%= h.created_at %></td></tr>
+    <% end %>
+    </table>
   </div>
   <form id="input-form" style="background: #999; padding: 7px 5px">
     <div class="row-fluid">
@@ -52,7 +57,7 @@
   $("#input-form").on("submit", function(event) {
     event.preventDefault();
     var text   = $("#input-text")[0].value;
-    ws.send(JSON.stringify({ game_id : 4, text: text }));
+    ws.send(JSON.stringify({ game_id : <%= params[:id] %>, text: text }));
     $("#input-text")[0].value = "";
   });
 

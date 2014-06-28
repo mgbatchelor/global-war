@@ -16,11 +16,6 @@ module GlobalWar
 
         ws.on :open do |event|
           p [:open, ws.object_id]
-
-          ChatHistory.limit(20).order("id DESC").reverse.each do |history|
-            ws.send(history.to_json)
-            Rails.logger.debug(history.to_json)
-          end
           @clients << ws
         end
 

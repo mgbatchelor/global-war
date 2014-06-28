@@ -20,6 +20,7 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
+    @history = ChatHistory.where(game: @game).includes(:user).limit(10).order("id DESC").reverse
   end
 
   def join

@@ -6,7 +6,7 @@ class ChatHistory < ActiveRecord::Base
     {
       user: self.user.email,
       message: self.message,
-      created_at: self.created_at.strftime('%m/%d %I:%M%p')
+      created_at: self.created_at
     }.to_json
   end
 
