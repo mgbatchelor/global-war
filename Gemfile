@@ -8,6 +8,8 @@ gem 'bootstrap_form'
 
 gem 'faye-websocket'
 
+gem 'angularjs-rails'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
 

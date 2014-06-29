@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="globalWarApp">
 <head>
   <meta charset="utf-8">
   <title>Starter Template for Bootstrap</title>
@@ -15,7 +15,7 @@
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body ng-controller="<%= ng_controller_name %>">
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
