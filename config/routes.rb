@@ -2,11 +2,18 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  root to: "games#index"
+  root to: "static_pages#index"
 
-  resources :games do
-    post :join
-    post :leave
+  # resources :games do
+  #   post :join
+  #   post :leave
+  # end
+
+  namespace :api do
+    namespace :v1 do
+      resources :games
+      resources :users
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -2,6 +2,9 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require angular
+//= require angular-route
+//= require underscore
+
 //= require global-war-application
 //= require_tree ./services/global
 //= require_tree ./services/main
